@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 1. Expanded Enum for Granular Control
+enum Role {
+  OWNER
+  ADMIN
+  EDITOR  // Can edit text, cannot invite others
+  VIEWER  // Read-only access
+}
+
+model User {
+  id            String            @id @default(uuid())
+  email         String            @unique
+  name          String
+  avatar        String?
+  googleId      String            @unique
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  
+  // Relations
+  memberships   WorkspaceMember[]
+  documents     Document[]        @relation("DocumentAuthor")
+  sharedDocs    DocumentAccess[]  // NEW: Documents shared specifically with this user
+}
+
+model Workspace {
+  id          String            @id @default(uuid())
+  name        String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  members     WorkspaceMember[]
+  documents   Document[]
+  pendingInvites PendingInvite[]
+}
+
+model WorkspaceMember {
+  id          String   @id @default(uuid())
+  role        Role     @default(VIEWER) // Safest default is read-only
+  joinedAt    DateTime @default(now())
+
+  userId      String
+  workspaceId String
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, workspaceId]) 
+}
+
+model Document {
+  id          String   @id @default(uuid())
+  title       String
+  content     String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  workspaceId String
+  authorId    String
+
+  workspace   Workspace        @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  author      User             @relation("DocumentAuthor", fields: [authorId], references: [id])
+  collaborators DocumentAccess[] // NEW: Users explicitly granted access to this doc
+  pendingInvites PendingInvite[]
+}
+
+// 2. NEW: The Document-Level Permissions Table
+// This allows Admins to share specific docs with Read or Write access
+model DocumentAccess {
+  id          String   @id @default(uuid())
+  role        Role     @default(VIEWER) // Usually EDITOR or VIEWER
+  grantedAt   DateTime @default(now())
+
+  userId      String
+  documentId  String
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  // A user can only have one specific permission rule per document
+  @@unique([userId, documentId])
+}
+
+// 3. NEW: Pending Invitations for Unregistered Users
+model PendingInvite {
+  id          String   @id @default(uuid())
+  email       String
+  role        Role     @default(VIEWER)
+  workspaceId String?  // Optional: If invited to a whole workspace
+  documentId  String?  // Optional: If invited to a specific document
+  createdAt   DateTime @default(now())
+
+  // We don't use strict relations here because if a workspace/document is deleted,
+  // leaving an orphaned invite is harmless, but for cleanliness we can relate them.
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  document    Document?  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([email, workspaceId])
+  @@unique([email, documentId])
+}

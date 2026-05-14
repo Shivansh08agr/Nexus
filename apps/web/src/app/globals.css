@@ -1,0 +1,299 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Inter', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+/* ============================================================
+   NEXUS DARK CRAYON THEME
+   ============================================================ */
+:root {
+  --background:        #0f0f0f;
+  --foreground:        #f0ede6;
+  --card:              #1a1a1a;
+  --card-foreground:   #f0ede6;
+  --popover:           #1e1e1e;
+  --popover-foreground: #f0ede6;
+  --primary:           #dc2626;
+  --primary-foreground: #fff;
+  --secondary:         #242424;
+  --secondary-foreground: #a8a29e;
+  --muted:             #1e1e1e;
+  --muted-foreground:  #6b7280;
+  --accent:            #d97706;
+  --accent-foreground: #fff;
+  --destructive:       #ef4444;
+  --border:            #2a2a2a;
+  --input:             #222;
+  --ring:              #d97706;
+  --radius:            0.5rem;
+
+  /* Sidebar */
+  --sidebar:           #111;
+  --sidebar-foreground: #f0ede6;
+  --sidebar-primary:   #dc2626;
+  --sidebar-primary-foreground: #fff;
+  --sidebar-accent:    #1e1e1e;
+  --sidebar-accent-foreground: #f0ede6;
+  --sidebar-border:    #222;
+  --sidebar-ring:      #d97706;
+
+  /* Nexus custom tokens */
+  --nexus-red:      #dc2626;
+  --nexus-red-dim:  #7f1d1d;
+  --nexus-gold:     #d97706;
+  --nexus-gold-dim: #78350f;
+  --nexus-surface:  #1a1a1a;
+  --nexus-border:   #2a2a2a;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    background-color: #0f0f0f;
+    color: #f0ede6;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  button, a[role="button"] {
+    cursor: pointer;
+  }
+}
+
+/* ============================================================
+   NEXUS UTILITY CLASSES
+   ============================================================ */
+
+/* Cards */
+.nexus-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.nexus-card:hover {
+  border-color: #3a3a3a;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+/* Buttons */
+.btn-primary {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-gold {
+  background: #d97706;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-gold:hover {
+  background: #b45309;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #a8a29e;
+  border: 1px solid #2a2a2a;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-ghost:hover {
+  color: #f0ede6;
+  border-color: #3a3a3a;
+  background: #1e1e1e;
+}
+
+/* Inputs */
+.nexus-input {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  color: #f0ede6;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.nexus-input:focus {
+  border-color: #d97706;
+  box-shadow: 0 0 0 2px rgba(217,119,6,0.15);
+}
+.nexus-input::placeholder { color: #4a4a4a; }
+
+/* Gradient text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #d97706, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-red {
+  background: linear-gradient(135deg, #dc2626, #f87171);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Gold accent line */
+.nexus-gold-bar {
+  height: 2px;
+  background: linear-gradient(90deg, #d97706, transparent);
+  border: none;
+}
+
+/* ============================================================
+   TIPTAP EDITOR STYLES (dark theme)
+   ============================================================ */
+
+.is-editor-empty:first-child::before {
+  color: #4a4a4a;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Multiplayer cursors */
+.collaboration-cursor__caret {
+  border-left: 2px solid #d97706;
+  border-right: 2px solid #d97706;
+  margin-left: -1px;
+  margin-right: -1px;
+  pointer-events: none;
+  position: relative;
+  word-break: normal;
+}
+
+.collaboration-cursor__label {
+  border-radius: 4px 4px 4px 0;
+  color: #0f0f0f;
+  font-size: 11px;
+  font-weight: 700;
+  left: -1px;
+  line-height: normal;
+  padding: 2px 6px;
+  position: absolute;
+  top: -1.6em;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Task list */
+ul[data-type="taskList"] {
+  list-style: none;
+  padding: 0;
+}
+ul[data-type="taskList"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+ul[data-type="taskList"] li > label {
+  flex: 0 0 auto;
+  margin-top: 0.2rem;
+  user-select: none;
+}
+ul[data-type="taskList"] li > div { flex: 1 1 auto; }
+ul[data-type="taskList"] input[type="checkbox"] {
+  cursor: pointer;
+  width: 1rem;
+  height: 1rem;
+  accent-color: #d97706;
+}
+ul[data-type="taskList"] p { margin: 0; }
+
+/* ============================================================
+   ANIMATION KEYFRAMES
+   ============================================================ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217,119,6,0); }
+  50%       { box-shadow: 0 0 0 6px rgba(217,119,6,0.15); }
+}
+
+.animate-fade-up { animation: fadeUp 0.4s ease both; }
+.animate-pulse-gold { animation: pulseGold 2s ease infinite; }

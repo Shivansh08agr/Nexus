@@ -1,0 +1,11 @@
+mutation CreateWorkspace($input: CreateWorkspaceInput!) {
+  createWorkspace(createWorkspaceInput: $input) {
+    id
+    name
+  }
+}
+mutation DeleteWorkspace($id: String!) {
+  removeWorkspace(id: $id) {
+    id
+  }
+}

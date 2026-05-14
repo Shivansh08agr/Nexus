@@ -1,0 +1,38 @@
+query GetWorkspaceDocuments($workspaceId: String!) {
+  workspaceDocuments(workspaceId: $workspaceId) {
+    id
+    title
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateDocument($input: CreateDocumentInput!) {
+  createDocument(createDocumentInput: $input) {
+    id
+    title
+  }
+}
+
+query GetDocument($id: String!) {
+  document(id: $id) {
+    id
+    title
+    content
+    updatedAt
+  }
+}
+
+mutation UpdateDocument($input: UpdateDocumentInput!) {
+  updateDocument(updateDocumentInput: $input) {
+    id
+    title
+    content
+  }
+}
+
+mutation DeleteDocument($id: String!) {
+  removeDocument(id: $id) {
+    id
+  }
+}

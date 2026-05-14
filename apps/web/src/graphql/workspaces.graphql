@@ -1,0 +1,39 @@
+query GetUserWorkspaces($userId: String!) {
+  workspaces(userId: $userId) {
+    id
+    name
+    createdAt
+  }
+}
+
+mutation InviteUser($email: String!, $workspaceId: String!) {
+  inviteUser(inviteUserInput: { email: $email, workspaceId: $workspaceId }) {
+    status
+    email
+  }
+}
+
+query GetWorkspaceMembers($workspaceId: String!) {
+  workspaceMembers(workspaceId: $workspaceId) {
+    id
+    role
+    joinedAt
+    user {
+      id
+      name
+      email
+      avatar
+    }
+  }
+}
+
+mutation UpdateMemberRole($workspaceId: String!, $userId: String!, $role: String!) {
+  updateMemberRole(updateRoleInput: { workspaceId: $workspaceId, userId: $userId, role: $role }) {
+    id
+    role
+  }
+}
+
+query GetMyWorkspaceRole($workspaceId: String!, $userId: String!) {
+  getMyWorkspaceRole(workspaceId: $workspaceId, userId: $userId)
+}

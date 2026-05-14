@@ -1,0 +1,100 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateDocumentInput {
+  authorId: String!
+  title: String!
+  workspaceId: String!
+}
+
+input CreateWorkspaceInput {
+  name: String!
+  userAvatar: String
+  userEmail: String
+  userGoogleId: String
+  userId: String!
+  userName: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Document {
+  authorId: String!
+  content: String
+  createdAt: DateTime!
+  id: ID!
+  title: String!
+  updatedAt: DateTime!
+  workspaceId: String!
+}
+
+type InviteResult {
+  email: String!
+  status: String!
+}
+
+input InviteUserInput {
+  documentId: String
+  email: String!
+  workspaceId: String!
+}
+
+type Mutation {
+  createDocument(createDocumentInput: CreateDocumentInput!): Document!
+  createWorkspace(createWorkspaceInput: CreateWorkspaceInput!): Workspace!
+  inviteUser(inviteUserInput: InviteUserInput!): InviteResult!
+  removeDocument(id: String!): Document!
+  removeWorkspace(id: String!): Workspace!
+  syncUser(avatar: String, email: String!, googleId: String!, name: String!): User!
+  updateDocument(updateDocumentInput: UpdateDocumentInput!): Document!
+  updateMemberRole(updateRoleInput: UpdateRoleInput!): WorkspaceMember!
+}
+
+type Query {
+  document(id: String!): Document!
+  getMyWorkspaceRole(userId: String!, workspaceId: String!): String
+  healthCheck: String!
+  workspaceDocuments(workspaceId: String!): [Document!]!
+  workspaceMembers(workspaceId: String!): [WorkspaceMember!]!
+  workspaces(userId: String!): [Workspace!]!
+}
+
+input UpdateDocumentInput {
+  content: String
+  id: String!
+  title: String
+}
+
+input UpdateRoleInput {
+  role: String!
+  userId: String!
+  workspaceId: String!
+}
+
+type User {
+  avatar: String
+  createdAt: DateTime!
+  email: String!
+  googleId: String!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type Workspace {
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type WorkspaceMember {
+  id: ID!
+  joinedAt: DateTime!
+  role: String!
+  user: User!
+}
