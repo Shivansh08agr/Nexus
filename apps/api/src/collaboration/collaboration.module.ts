@@ -1,5 +1,5 @@
 import { Module, OnModuleInit, Logger } from '@nestjs/common';
-import { Server } from '@hocuspocus/server';
+import { Hocuspocus } from '@hocuspocus/server';
 import { TiptapTransformer } from '@hocuspocus/transformer';
 import StarterKit from '@tiptap/starter-kit';
 
@@ -16,7 +16,7 @@ export class CollaborationModule implements OnModuleInit {
   async onModuleInit() {
     const prismaClient = this.prisma; 
 
-    const server = new Server({
+    const server = new Hocuspocus({
       port: process.env.WEBSOCKET_PORT ? parseInt(process.env.WEBSOCKET_PORT, 10) : 8081,
 
       async onAuthenticate(data) {
