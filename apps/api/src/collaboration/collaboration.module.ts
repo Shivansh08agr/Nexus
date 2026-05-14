@@ -10,6 +10,9 @@ import { PrismaService } from '../prisma/prisma.service';
 })
 export class CollaborationModule implements OnModuleInit {
   private readonly logger = new Logger(CollaborationModule.name);
+  
+  // 1. ADDED THIS LINE: Publicly expose the server instance
+  public hocuspocusServer: any;
 
   constructor(private readonly prisma: PrismaService) {}
 
@@ -17,7 +20,7 @@ export class CollaborationModule implements OnModuleInit {
     const prismaClient = this.prisma; 
 
     const server = new Hocuspocus({
-      port: process.env.WEBSOCKET_PORT ? parseInt(process.env.WEBSOCKET_PORT, 10) : 8081,
+      // 2. REMOVED THE 'port' PROPERTY ENTIRELY 
 
       async onAuthenticate(data) {
         const userId = data.token;
@@ -124,7 +127,9 @@ export class CollaborationModule implements OnModuleInit {
       },
     });
 
-    server.listen();
-    this.logger.log(`Hocuspocus WebSocket Server running on ${process.env.NEXT_PUBLIC_WEBSOCKET_URL}`);
+    // 3. REPLACED server.listen() WITH THIS:
+    // Save the instance so main.ts can grab it
+    this.hocuspocusServer = server;
+    this.logger.log(`Hocuspocus instance created (Waiting for main.ts to attach to port)`);
   }
 }
