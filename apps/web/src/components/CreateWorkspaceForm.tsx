@@ -6,6 +6,7 @@ import { Plus, X, Check } from "lucide-react";
 
 export function CreateWorkspaceForm({ compact = false }: { compact?: boolean }) {
   const [isCreating, setIsCreating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   if (isCreating) {
@@ -13,8 +14,14 @@ export function CreateWorkspaceForm({ compact = false }: { compact?: boolean }) 
       <form
         ref={formRef}
         action={async (formData) => {
-          await createWorkspaceAction(formData);
-          setIsCreating(false);
+          if (isSubmitting) return;
+          setIsSubmitting(true);
+          try {
+            await createWorkspaceAction(formData);
+            setIsCreating(false);
+          } finally {
+            setIsSubmitting(false);
+          }
         }}
         className="flex flex-col gap-2 w-full"
         onClick={(e) => e.stopPropagation()}
@@ -25,19 +32,33 @@ export function CreateWorkspaceForm({ compact = false }: { compact?: boolean }) 
           placeholder="e.g. Engineering Team"
           required
           autoFocus
+          disabled={isSubmitting}
           className="nexus-input"
+          style={{ opacity: isSubmitting ? 0.7 : 1 }}
         />
         <div className="flex gap-2">
           <button
             type="button"
             onClick={() => setIsCreating(false)}
+            disabled={isSubmitting}
             className="btn-ghost flex-1"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: isSubmitting ? "not-allowed" : "pointer", opacity: isSubmitting ? 0.7 : 1 }}
           >
             <X className="w-4 h-4" /> Cancel
           </button>
-          <button type="submit" className="btn-primary flex-1" style={{ cursor: "pointer" }}>
-            <Check className="w-4 h-4" /> Create
+          <button 
+            type="submit" 
+            disabled={isSubmitting}
+            className="btn-primary flex-1" 
+            style={{ cursor: isSubmitting ? "not-allowed" : "pointer", opacity: isSubmitting ? 0.7 : 1 }}
+          >
+            {isSubmitting ? (
+              <span className="w-4 h-4 border-2 rounded-full animate-spin"
+                style={{ borderColor: "rgba(255,255,255,0.3)", borderTopColor: "#fff" }} />
+            ) : (
+              <Check className="w-4 h-4" />
+            )}
+            {isSubmitting ? "Creating…" : "Create"}
           </button>
         </div>
       </form>

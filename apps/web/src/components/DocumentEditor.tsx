@@ -114,7 +114,7 @@ function ConnectionManager({
     if (status !== "authenticated" || !session?.user?.id) return;
 
     const wsUrl =
-      process.env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://127.0.0.1:8081";
+      process.env.NEXT_PUBLIC_WEBSOCKET_URL || "ws://127.0.0.1:3001";
     const newYdoc = new Y.Doc();
 
     const newProvider = new HocuspocusProvider({

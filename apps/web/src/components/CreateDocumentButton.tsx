@@ -3,18 +3,34 @@
 import { useTransition } from "react";
 import { createDocumentAction } from "../app/actions/document";
 import { Plus } from "lucide-react";
+import {useState} from 'react'
 
 export function CreateDocumentButton({ workspaceId }: { workspaceId: string }) {
   const [isPending, startTransition] = useTransition();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleClick = () => {
+    if (isSubmitting || isPending) return;
+    setIsSubmitting(true);
+    startTransition(async () => {
+      try {
+        await createDocumentAction(workspaceId);
+      } finally {
+        setIsSubmitting(false);
+      }
+    });
+  };
+
+  const disabled = isPending || isSubmitting;
 
   return (
     <button
-      onClick={() => startTransition(() => createDocumentAction(workspaceId))}
-      disabled={isPending}
+      onClick={handleClick}
+      disabled={disabled}
       className="btn-primary"
-      style={{ cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}
+      style={{ cursor: disabled ? "not-allowed" : "pointer", opacity: disabled ? 0.7 : 1 }}
     >
-      {isPending ? (
+      {disabled ? (
         <>
           <span className="w-4 h-4 border-2 rounded-full animate-spin"
             style={{ borderColor: "rgba(255,255,255,0.3)", borderTopColor: "#fff" }} />
