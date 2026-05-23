@@ -1,27 +1,26 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useTransition } from "react";
 import { createWorkspaceAction } from "@/app/actions/workspace";
 import { Plus, X, Check } from "lucide-react";
 
 export function CreateWorkspaceForm({ compact = false }: { compact?: boolean }) {
   const [isCreating, setIsCreating] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const formRef = useRef<HTMLFormElement>(null);
 
   if (isCreating) {
     return (
       <form
         ref={formRef}
-        action={async (formData) => {
-          if (isSubmitting) return;
-          setIsSubmitting(true);
-          try {
-            await createWorkspaceAction(formData);
-            setIsCreating(false);
-          } finally {
-            setIsSubmitting(false);
-          }
+        action={(formData) => {
+          if (isPending) return;
+          startTransition(async () => {
+            const res = await createWorkspaceAction(formData);
+            if (res?.error) {
+               // Only reset if there's an error, otherwise it's redirecting
+            }
+          });
         }}
         className="flex flex-col gap-2 w-full"
         onClick={(e) => e.stopPropagation()}
@@ -32,33 +31,33 @@ export function CreateWorkspaceForm({ compact = false }: { compact?: boolean }) 
           placeholder="e.g. Engineering Team"
           required
           autoFocus
-          disabled={isSubmitting}
+          disabled={isPending}
           className="nexus-input"
-          style={{ opacity: isSubmitting ? 0.7 : 1 }}
+          style={{ opacity: isPending ? 0.7 : 1 }}
         />
         <div className="flex gap-2">
           <button
             type="button"
             onClick={() => setIsCreating(false)}
-            disabled={isSubmitting}
+            disabled={isPending}
             className="btn-ghost flex-1"
-            style={{ cursor: isSubmitting ? "not-allowed" : "pointer", opacity: isSubmitting ? 0.7 : 1 }}
+            style={{ cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}
           >
             <X className="w-4 h-4" /> Cancel
           </button>
           <button 
             type="submit" 
-            disabled={isSubmitting}
+            disabled={isPending}
             className="btn-primary flex-1" 
-            style={{ cursor: isSubmitting ? "not-allowed" : "pointer", opacity: isSubmitting ? 0.7 : 1 }}
+            style={{ cursor: isPending ? "not-allowed" : "pointer", opacity: isPending ? 0.7 : 1 }}
           >
-            {isSubmitting ? (
+            {isPending ? (
               <span className="w-4 h-4 border-2 rounded-full animate-spin"
                 style={{ borderColor: "rgba(255,255,255,0.3)", borderTopColor: "#fff" }} />
             ) : (
               <Check className="w-4 h-4" />
             )}
-            {isSubmitting ? "Creating…" : "Create"}
+            {isPending ? "Creating…" : "Create"}
           </button>
         </div>
       </form>

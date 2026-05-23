@@ -28,22 +28,30 @@ export function DeleteDocumentButton({ id, workspaceId }: { id: string; workspac
         color: "#6b7280",
         borderRadius: "0.375rem",
         padding: "0.375rem",
-        cursor: "pointer",
+        cursor: isPending ? "not-allowed" : "pointer",
         display: "inline-flex",
         alignItems: "center",
+        justifyContent: "center",
         transition: "all 0.15s",
         opacity: isPending ? 0.5 : 1,
       }}
       onMouseEnter={(e) => {
+        if (isPending) return;
         (e.currentTarget as HTMLButtonElement).style.color = "#ef4444";
         (e.currentTarget as HTMLButtonElement).style.background = "#1a0a0a";
       }}
       onMouseLeave={(e) => {
+        if (isPending) return;
         (e.currentTarget as HTMLButtonElement).style.color = "#6b7280";
         (e.currentTarget as HTMLButtonElement).style.background = "transparent";
       }}
     >
-      <Trash2 className="w-4 h-4" />
+      {isPending ? (
+        <span className="w-4 h-4 border-2 rounded-full animate-spin"
+          style={{ borderColor: "rgba(107,114,128,0.3)", borderTopColor: "#6b7280" }} />
+      ) : (
+        <Trash2 className="w-4 h-4" />
+      )}
     </button>
   );
 }

@@ -61,6 +61,7 @@ export default async function DocumentPage({
     <div className="h-screen flex flex-col" style={{ background: "#0f0f0f" }}>
       <DocumentEditor
         id={document.id}
+        workspaceId={resolvedParams.workspaceId}
         initialTitle={document.title}
         initialContent={document.content || ""}
         isReadonly={isReadonly}

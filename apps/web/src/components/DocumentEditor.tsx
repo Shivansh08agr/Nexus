@@ -78,18 +78,20 @@ function ActiveUsers({ provider }: { provider: HocuspocusProvider }) {
 // ── Root export (wraps in SessionProvider) ───────────────────
 export function DocumentEditor({
   id,
+  workspaceId,
   initialTitle,
   initialContent,
   isReadonly = false,
 }: {
   id: string;
+  workspaceId: string;
   initialTitle: string;
   initialContent: string;
   isReadonly?: boolean;
 }) {
   return (
     <SessionProvider>
-      <ConnectionManager id={id} initialTitle={initialTitle} isReadonly={isReadonly} />
+      <ConnectionManager id={id} workspaceId={workspaceId} initialTitle={initialTitle} isReadonly={isReadonly} />
     </SessionProvider>
   );
 }
@@ -97,10 +99,12 @@ export function DocumentEditor({
 // ── Connection Manager ───────────────────────────────────────
 function ConnectionManager({
   id,
+  workspaceId,
   initialTitle,
   isReadonly,
 }: {
   id: string;
+  workspaceId: string;
   initialTitle: string;
   isReadonly: boolean;
 }) {
@@ -170,6 +174,7 @@ function ConnectionManager({
   return (
     <LiveEditor
       id={id}
+      workspaceId={workspaceId}
       initialTitle={initialTitle}
       ydoc={ydoc}
       provider={provider}
@@ -191,12 +196,14 @@ function LoadingState({ label }: { label: string }) {
 // ── Live Editor ──────────────────────────────────────────────
 function LiveEditor({
   id,
+  workspaceId,
   initialTitle,
   ydoc,
   provider,
   isReadonly,
 }: {
   id: string;
+  workspaceId: string;
   initialTitle: string;
   ydoc: Y.Doc;
   provider: HocuspocusProvider;
@@ -291,6 +298,13 @@ function LiveEditor({
       >
         {/* Left: Title input */}
         <div className="flex items-center gap-3 flex-1 min-w-0 mr-4">
+          <Link href={`/dashboard/${workspaceId}`} className="p-1.5 rounded-md transition-colors flex-shrink-0"
+            style={{ color: "#6b7280" }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#2a2a2a")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </Link>
           {isReadonly && (
             <span className="flex items-center gap-1.5 text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0"
               style={{ background: "#1a0a0a", color: "#f87171", border: "1px solid #7f1d1d" }}>

@@ -90,15 +90,6 @@ export default async function DashboardPage() {
             </div>
           ))}
 
-          {/* Add workspace card */}
-          <div className="nexus-card p-6 flex flex-col items-center justify-center gap-3 min-h-[160px] cursor-pointer group"
-            style={{ border: "1px dashed #2a2a2a" }}>
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all"
-              style={{ background: "#1a1a1a", border: "1px solid #2a2a2a" }}>
-              <Plus className="w-5 h-5" style={{ color: "#4b5563" }} />
-            </div>
-            <CreateWorkspaceForm compact />
-          </div>
         </div>
       )}
     </div>

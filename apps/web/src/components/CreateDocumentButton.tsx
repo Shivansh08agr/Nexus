@@ -7,21 +7,15 @@ import {useState} from 'react'
 
 export function CreateDocumentButton({ workspaceId }: { workspaceId: string }) {
   const [isPending, startTransition] = useTransition();
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClick = () => {
-    if (isSubmitting || isPending) return;
-    setIsSubmitting(true);
+    if (isPending) return;
     startTransition(async () => {
-      try {
-        await createDocumentAction(workspaceId);
-      } finally {
-        setIsSubmitting(false);
-      }
+      await createDocumentAction(workspaceId);
     });
   };
 
-  const disabled = isPending || isSubmitting;
+  const disabled = isPending;
 
   return (
     <button

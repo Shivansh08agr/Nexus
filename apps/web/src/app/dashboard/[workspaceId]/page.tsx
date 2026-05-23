@@ -6,7 +6,7 @@ import { print } from "graphql";
 import Link from "next/link";
 import { CreateDocumentButton } from "@/components/CreateDocumentButton";
 import { DeleteDocumentButton } from "@/components/DeleteDocumentButton";
-import { FileText, Clock, Users } from "lucide-react";
+import { FileText, Clock, Users, ArrowLeft } from "lucide-react";
 
 export default async function WorkspaceViewPage({
   params,
@@ -32,9 +32,14 @@ export default async function WorkspaceViewPage({
     <div className="p-8 max-w-5xl mx-auto">
       {/* Header */}
       <div className="mb-10 animate-fade-up">
-        <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: "#d97706" }}>
-          Workspace
-        </p>
+        <div className="flex items-center gap-2 mb-2 text-sm font-semibold uppercase tracking-widest" style={{ color: "#d97706" }}>
+          <Link href="/dashboard" className="flex items-center gap-1 hover:text-amber-500 transition-colors" style={{ textDecoration: "none" }}>
+            <ArrowLeft className="w-4 h-4" />
+            Dashboard
+          </Link>
+          <span style={{ color: "#4b5563" }}>/</span>
+          <span>Workspace</span>
+        </div>
         <div className="flex items-end justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-4xl font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#f0ede6" }}>
