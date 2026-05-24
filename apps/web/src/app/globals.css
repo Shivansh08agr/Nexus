@@ -39,49 +39,51 @@
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
+  --color-nexus-red: var(--nexus-red);
+  --color-nexus-gold: var(--nexus-gold);
 }
 
 /* ============================================================
-   NEXUS DARK CRAYON THEME
+   NEXUS EXPERIMENTAL THEME
    ============================================================ */
 :root {
-  --background:        #0f0f0f;
-  --foreground:        #f0ede6;
-  --card:              #1a1a1a;
-  --card-foreground:   #f0ede6;
-  --popover:           #1e1e1e;
-  --popover-foreground: #f0ede6;
-  --primary:           #dc2626;
-  --primary-foreground: #fff;
-  --secondary:         #242424;
-  --secondary-foreground: #a8a29e;
-  --muted:             #1e1e1e;
-  --muted-foreground:  #6b7280;
-  --accent:            #d97706;
-  --accent-foreground: #fff;
-  --destructive:       #ef4444;
-  --border:            #2a2a2a;
-  --input:             #222;
-  --ring:              #d97706;
-  --radius:            0.5rem;
+  --background:        #090909;
+  --foreground:        #f5f4ef;
+  --card:              #151515;
+  --card-foreground:   #f5f4ef;
+  --popover:           #111111;
+  --popover-foreground: #f5f4ef;
+  --primary:           #E53935;
+  --primary-foreground: #ffffff;
+  --secondary:         #111111;
+  --secondary-foreground: #a3a3a3;
+  --muted:             #151515;
+  --muted-foreground:  #737373;
+  --accent:            #D89B1D;
+  --accent-foreground: #ffffff;
+  --destructive:       #E53935;
+  --border:            #262626;
+  --input:             #151515;
+  --ring:              #D89B1D;
+  --radius:            0.375rem;
 
   /* Sidebar */
-  --sidebar:           #111;
-  --sidebar-foreground: #f0ede6;
-  --sidebar-primary:   #dc2626;
-  --sidebar-primary-foreground: #fff;
-  --sidebar-accent:    #1e1e1e;
-  --sidebar-accent-foreground: #f0ede6;
-  --sidebar-border:    #222;
-  --sidebar-ring:      #d97706;
+  --sidebar:           #090909;
+  --sidebar-foreground: #f5f4ef;
+  --sidebar-primary:   #E53935;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent:    #151515;
+  --sidebar-accent-foreground: #f5f4ef;
+  --sidebar-border:    #262626;
+  --sidebar-ring:      #D89B1D;
 
   /* Nexus custom tokens */
-  --nexus-red:      #dc2626;
-  --nexus-red-dim:  #7f1d1d;
-  --nexus-gold:     #d97706;
-  --nexus-gold-dim: #78350f;
-  --nexus-surface:  #1a1a1a;
-  --nexus-border:   #2a2a2a;
+  --nexus-red:      #E53935;
+  --nexus-red-dim:  #4a1515;
+  --nexus-gold:     #D89B1D;
+  --nexus-gold-dim: #4d360a;
+  --nexus-surface:  #111111;
+  --nexus-border:   #262626;
 }
 
 @layer base {
