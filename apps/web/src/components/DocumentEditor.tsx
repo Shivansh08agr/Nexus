@@ -37,9 +37,9 @@ function ActiveUsers({ provider }: { provider: HocuspocusProvider }) {
       const unique = active.filter((v, i, a) => a.findIndex((t) => t.name === v.name) === i);
       setUsers(unique);
     };
-    provider?.awareness?.on?.("change", update);
+    provider?.awareness?.on?.("update", update);
     update();
-    return () => provider?.awareness?.off?.("change", update);
+    return () => provider?.awareness?.off?.("update", update);
   }, [provider]);
 
   if (users.length === 0) return null;
@@ -235,7 +235,7 @@ function LiveEditor({
       Collaboration.configure({ document: ydoc }),
       CollaborationCaret.configure({
         provider,
-        user: { name: userName, color: userColor },
+        user: { name: userName, color: userColor, avatar: session?.user?.image },
       }),
     ],
     immediatelyRender: false,
