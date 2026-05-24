@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import { FileText, Lock, Activity, Server, Shield, Layout, Key, Database } from "lucide-react";
 
 export default async function HomePage() {
-  // const session = await auth();
-  // if (session?.user?.id) redirect("/dashboard");
+  const session = await auth();
+  if (session?.user?.id) redirect("/dashboard");
 
   return (
     <div className="min-h-screen selection:bg-nexus-red/30" style={{ background: "#090909", color: "#f5f4ef", fontFamily: "'Inter', sans-serif" }}>
@@ -61,10 +61,10 @@ export default async function HomePage() {
                 <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
-            <button className="px-6 py-3.5 rounded-md font-semibold text-sm transition-all hover:bg-white/5"
+            <a href="https://github.com/Shivansh08agr/Nexus" target="_blank" className="px-6 py-3.5 rounded-md font-semibold text-sm transition-all hover:bg-white/5"
               style={{ color: "#a3a3a3", border: "1px solid #262626" }}>
               Read the Docs
-            </button>
+            </a>
           </div>
         </div>
 
@@ -244,9 +244,8 @@ export default async function HomePage() {
           </div>
           
           <div className="flex items-center gap-6 text-sm text-neutral-500">
-            <a href="#" className="hover:text-neutral-300 transition-colors">GitHub</a>
-            <a href="#" className="hover:text-neutral-300 transition-colors">Documentation</a>
-            <a href="#" className="hover:text-neutral-300 transition-colors">Status</a>
+            <a href="https://github.com/Shivansh08agr/Nexus" className="hover:text-neutral-300 transition-colors">GitHub</a>
+            <a href="https://github.com/Shivansh08agr/Nexus" className="hover:text-neutral-300 transition-colors">Documentation</a>
           </div>
         </div>
       </footer>
