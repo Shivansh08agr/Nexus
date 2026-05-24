@@ -5,7 +5,8 @@ import { GetWorkspaceMembersDocument } from "@/lib/generated/graphql";
 import { print } from "graphql";
 import { MembersList } from "./MembersList";
 import { InviteForm } from "./InviteForm";
-import { Users } from "lucide-react";
+import { Users, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default async function WorkspaceMembersPage({
   params,
@@ -34,9 +35,18 @@ export default async function WorkspaceMembersPage({
     <div className="p-8 max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-10 animate-fade-up">
-        <p className="text-sm font-semibold uppercase tracking-widest mb-2" style={{ color: "#d97706" }}>
-          Workspace
-        </p>
+        <div className="flex items-center gap-2 mb-2">
+          <Link 
+            href={`/dashboard/${resolvedParams.workspaceId}`} 
+            className="p-1 rounded-md transition-colors hover:bg-white/5" 
+            style={{ color: "#6b7280" }}
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </Link>
+          <p className="text-sm font-semibold uppercase tracking-widest" style={{ color: "#d97706" }}>
+            Workspace
+          </p>
+        </div>
         <div className="flex items-end justify-between flex-wrap gap-4">
           <div>
             <h1 className="text-4xl font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "#f0ede6" }}>

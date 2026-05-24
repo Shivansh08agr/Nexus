@@ -37,9 +37,11 @@ function ActiveUsers({ provider }: { provider: HocuspocusProvider }) {
       const unique = active.filter((v, i, a) => a.findIndex((t) => t.name === v.name) === i);
       setUsers(unique);
     };
-    provider?.awareness?.on?.("update", update);
+    provider?.on?.("awarenessUpdate", update);
     update();
-    return () => provider?.awareness?.off?.("update", update);
+    return () => {
+      provider?.off?.("awarenessUpdate", update);
+    };
   }, [provider]);
 
   if (users.length === 0) return null;
