@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import { FileText, Lock, Activity, Server, Shield, Layout, Key, Database } from "lucide-react";
 
 export default async function HomePage() {
-  const session = await auth();
-  if (session?.user?.id) redirect("/dashboard");
+  // const session = await auth();
+  // if (session?.user?.id) redirect("/dashboard");
 
   return (
     <div className="min-h-screen selection:bg-nexus-red/30" style={{ background: "#090909", color: "#f5f4ef", fontFamily: "'Inter', sans-serif" }}>
@@ -17,9 +17,7 @@ export default async function HomePage() {
       <header className="fixed top-0 inset-x-0 z-40 px-6 sm:px-12 py-5 flex items-center justify-between"
         style={{ background: "rgba(9, 9, 9, 0.7)", backdropFilter: "blur(16px)", borderBottom: "1px solid #151515" }}>
         <div className="flex items-center gap-3">
-          <div className="w-5 h-5 rounded-sm flex items-center justify-center" style={{ background: "#E53935", boxShadow: "0 0 12px rgba(229,57,53,0.4)" }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-white" />
-          </div>
+          <img src="favicon.ico" alt="Nexus" className="w-7"/>
           <span className="font-bold text-lg tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Nexus
           </span>
@@ -43,11 +41,6 @@ export default async function HomePage() {
         
         {/* Left Copy */}
         <div className="flex-1 w-full max-w-2xl z-10 animate-fade-up">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm text-[11px] font-mono uppercase tracking-wider mb-8"
-            style={{ background: "#111111", color: "#D89B1D", border: "1px solid #262626" }}>
-            <div className="w-1.5 h-1.5 rounded-full bg-nexus-gold animate-pulse" />
-            v2.0 Sync Engine Live
-          </div>
 
           <h1 className="text-6xl sm:text-7xl lg:text-[5.5rem] font-bold leading-[0.9] tracking-tighter mb-8"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -135,7 +128,7 @@ export default async function HomePage() {
                     Let's make sure the latency is kept under 50ms for globally distributed teams.
                     <span className="relative inline-block ml-1 group">
                       <span className="animate-pulse absolute -left-1.5 -top-0.5 w-[2px] h-[1.2em] bg-blue-500" />
-                      <span className="absolute -top-7 -left-1.5 bg-blue-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm rounded-bl-none whitespace-nowrap shadow-lg">Sarah</span>
+                      <span className="absolute -top-7 -left-1.5 bg-blue-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm rounded-bl-none whitespace-nowrap shadow-lg">Shivansh</span>
                     </span>
                   </p>
 
@@ -146,7 +139,7 @@ export default async function HomePage() {
                       <span className="relative inline-block">
                         Client-side optimistic UI
                         <span className="animate-pulse absolute -right-2 top-0.5 w-[2px] h-[1.2em] bg-nexus-gold" />
-                        <span className="absolute -top-6 -right-2 bg-nexus-gold text-black text-[10px] font-bold px-1.5 py-0.5 rounded-sm rounded-br-none whitespace-nowrap shadow-lg">Alex</span>
+                        <span className="absolute -top-6 -right-2 bg-nexus-gold text-black text-[10px] font-bold px-1.5 py-0.5 rounded-sm rounded-br-none whitespace-nowrap shadow-lg">Adi</span>
                       </span>
                     </li>
                   </ul>
@@ -239,14 +232,14 @@ export default async function HomePage() {
       <footer className="py-12 px-6 sm:px-12 border-t" style={{ borderColor: "#151515", background: "#090909" }}>
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-4 h-4 rounded-sm flex items-center justify-center" style={{ background: "#262626" }}>
-              <span className="w-1 h-1 rounded-full bg-neutral-400" />
+            <div className="w-5 rounded-sm flex items-center justify-center">
+              <img src="favicon.ico"/>
             </div>
             <span className="font-bold tracking-tight text-sm text-neutral-300" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Nexus System</span>
           </div>
           
           <div className="text-[11px] font-mono text-neutral-600 uppercase tracking-widest flex items-center gap-6">
-            <span>v2.0.4</span>
+            <span>v1.0.4</span>
             <span className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-green-500" /> All systems operational</span>
           </div>
           
