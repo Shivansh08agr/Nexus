@@ -1,0 +1,42 @@
+name: Deploy Nexus Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/api/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Executing remote SSH commands to deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            # Navigate to your monorepo backend application directory
+            cd ~/nexus-backend/apps/api
+            
+            # Pull the latest changes safely
+            git pull origin main
+            
+            # Install any new dependencies
+            npm install
+            
+            # Generate Prisma client if schema updated
+            npx prisma generate
+            
+            # Build the production bundle
+            npm run build
+            
+            # Restart the PM2 process to apply updates seamlessly
+            pm2 restart nexus-backend
