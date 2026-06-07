@@ -19,26 +19,8 @@ async function bootstrap() {
     credentials: true, 
   });
 
-const collabModule = app.get(CollaborationModule) as any;
-
-  // 2. Get the raw Node HTTP server running under NestJS
-  const httpServer = app.getHttpServer();
-
-  // 3. Require the native 'ws' library (already installed by Hocuspocus)
-  const { WebSocketServer } = require('ws');
-  const wss = new WebSocketServer({ noServer: true });
-
-  // 4. Intercept all WebSocket upgrade requests and hand them to Hocuspocus
-  httpServer.on('upgrade', (request, socket, head) => {
-    wss.handleUpgrade(request, socket, head, (ws) => {
-      wss.emit('connection', ws, request);
-      collabModule.hocuspocusServer.handleConnection(ws, request);
-    });
-  });
-
-  // 5. Start the unified server!
-  const port = process.env.PORT || 3001;
+  const port = process.env.PORT || 3000;
   await app.listen(port);
-  console.log(`Unified API & WebSocket Server running on port ${port}`);
+  console.log(`API Server running on port ${port}`);
 }
 bootstrap();
